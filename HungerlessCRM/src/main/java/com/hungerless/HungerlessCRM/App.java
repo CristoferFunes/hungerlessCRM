@@ -15,6 +15,7 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.hungerless.HungerlessCRM.clients.ClientsAPI;
 
 public class App
 {

@@ -1,4 +1,4 @@
-package com.hungerless.HungerlessCRM;
+package com.hungerless.HungerlessCRM.clients;
 
 import java.util.function.Function;
 

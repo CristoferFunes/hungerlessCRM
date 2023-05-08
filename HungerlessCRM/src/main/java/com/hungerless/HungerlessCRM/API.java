@@ -15,6 +15,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.Query.Direction;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
@@ -54,7 +55,10 @@ public abstract class API
 		try
 		{
 			getRef = db.collection(getFrom());
-			query = getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV());
+			query = getRef
+					.whereEqualTo((String) getCondition().getK(), getCondition().getV())
+					.orderBy(getOrder().getK(), (Direction) getOrder().getV())
+					.limit(getLimit());
 			ApiFuture<QuerySnapshot> future = query.get();
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 			for (QueryDocumentSnapshot document : documents)
@@ -62,7 +66,7 @@ public abstract class API
 				// System.out.println("Document data: " + document.getData());
 				System.out.println("Name: " + document.get("first_name"));
 			}	
-			documents.stream().map(mapper()).forEach(o -> result.add(o));	
+			//documents.stream().map(mapper()).forEach(o -> result.add(o));	
 		}
 		catch(ExecutionException | InterruptedException e)
 		{
@@ -74,6 +78,8 @@ public abstract class API
 	
 	public abstract String getFrom();
 	public abstract <V> Pair<String, V> getCondition();
+	public abstract Pair<String, Object> getOrder();
+	public abstract int getLimit();
 	public abstract Function<QueryDocumentSnapshot, Object> mapper();
 	
 	
