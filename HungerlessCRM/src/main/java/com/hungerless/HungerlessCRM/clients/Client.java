@@ -1,5 +1,7 @@
 package com.hungerless.HungerlessCRM.clients;
 
+import java.util.Date;
+
 public class Client
 {
 	
@@ -10,8 +12,8 @@ public class Client
 	private String address;
 	private String phoneNumber;
 	private String comments;
-	private String dateOfCreation;
-	private String lastSaleDate;
+	private Date dateOfCreation;
+	private Date lastSaleDate;
 	private boolean prospect;
 	private boolean customer;
 	
@@ -21,8 +23,8 @@ public class Client
 				  String address, 
 				  String phoneNumber, 
 				  String comments, 
-				  String dateOfCreation, 
-				  String lastSaleDate, 
+				  Date dateOfCreation, 
+				  Date lastSaleDate, 
 				  Boolean prospect, 
 				  Boolean customer)
 	{
@@ -78,12 +80,12 @@ public class Client
 		this.comments = comments;
 	}
 
-	public String getDateOfCreation()
+	public Date getDateOfCreation()
 	{
 		return dateOfCreation;
 	}
 
-	public void setDateOfCreation(String dateOfCreation)
+	public void setDateOfCreation(Date dateOfCreation)
 	{
 		this.dateOfCreation = dateOfCreation;
 	}
@@ -118,7 +120,7 @@ public class Client
 		return address;
 	}
 
-	public String getLastSaleDate()
+	public Date getLastSaleDate()
 	{
 		return lastSaleDate;
 	}
