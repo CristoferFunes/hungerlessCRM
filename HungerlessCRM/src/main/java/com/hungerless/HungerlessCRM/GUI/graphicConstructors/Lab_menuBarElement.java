@@ -65,10 +65,10 @@ public class Lab_menuBarElement extends JLabel implements MouseListener
 			switch(selection)
 			{
 				//case 1 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectAccount();
-				//case 2 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectCalculator();
+				case 2 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectCalculator();
 				case 3 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectClients();
-				//case 4 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectSales();
-				//case 5 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectEditor();
+				case 4 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectSales();
+				case 5 -> ((Pan_workSpace)GraphicObjects.get("Pan_workSpace")).selectEditor();
 			}
 			
 		}

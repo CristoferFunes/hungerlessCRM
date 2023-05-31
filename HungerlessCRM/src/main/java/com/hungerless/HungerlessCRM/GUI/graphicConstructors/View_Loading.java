@@ -11,9 +11,9 @@ import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 
 public class View_Loading
 {
-	public View_Loading(String LorR)
+	public View_Loading(String LorR, String LoadingMessage)
 	{
-		GraphicObjects.add("Pan_"+LorR+"_Loading", new JLabel("Cargando..."));
+		GraphicObjects.add("Pan_"+LorR+"_Loading", new JLabel(LoadingMessage + "..."));
 		GraphicObjects.get("Pan_"+LorR+"_Loading").setFont(new Font(null,Font.PLAIN,24));
 		GraphicObjects.get("Pan_"+LorR+"_Loading").setPreferredSize(GraphicConstants.getObjectsSize());
 		((JLabel)GraphicObjects.get("Pan_"+LorR+"_Loading")).setHorizontalAlignment(JLabel.CENTER);

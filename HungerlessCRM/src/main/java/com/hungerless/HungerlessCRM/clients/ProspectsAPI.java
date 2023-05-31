@@ -5,8 +5,8 @@ import java.util.function.Function;
 
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.hungerless.HungerlessCRM.API;
 import com.hungerless.HungerlessCRM.Pair;
+import com.hungerless.HungerlessCRM.API;
 
 public class ProspectsAPI extends API
 {
@@ -51,12 +51,30 @@ public class ProspectsAPI extends API
 	@Override
 	public HashMap<String, Object> putMapper(Object o)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> post = new HashMap<>();
+		post.put("first_name", ((Client)o).getFirst_name());
+		post.put("last_name", ((Client)o).getLast_name());
+		post.put("address", ((Client)o).getAddress());
+		post.put("phone_number", ((Client)o).getPhoneNumber());
+		post.put("comments", ((Client)o).getComments());
+		if(null != ((Client)o).getLastSaleSpecs()) post.put("last_sale_specs", ((Client)o).getLastSaleSpecs());
+		post.put("date_of_creation", ((Client)o).getDateOfCreation());
+		if(null != ((Client)o).getLastSaleDate()) post.put("last_sale_date", ((Client)o).getLastSaleDate());
+		post.put("prospect", ((Client)o).isProspect());
+		post.put("customer", ((Client)o).isCustomer());
+		if(((Client)o).getSeniority() != 0) post.put("seniority", ((Client)o).getSeniority());
+		
+		return post;
 	}
 
 	@Override
-	public String updateRef(Object o)
+	public String idRef(Object o)
+	{
+		return ((Client) o).getClientID();
+	}
+
+	@Override
+	public <V> Pair<String, V> getSecondCondition()
 	{
 		// TODO Auto-generated method stub
 		return null;

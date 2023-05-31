@@ -2,11 +2,9 @@ package com.hungerless.HungerlessCRM;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
@@ -14,34 +12,39 @@ import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
-import com.google.cloud.firestore.Query.Direction;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.Query.Direction;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
-import com.hungerless.HungerlessCRM.clients.Client;
-
 public abstract class API
 {
+	
 	private FileInputStream serviceAccount;
 	private FirebaseOptions options;
+	private boolean initialized = false;
+	FirebaseApp firebaseApp;
 	private Firestore db;
 	private CollectionReference getRef;
 	private Query query;
-	FirebaseApp firebaseApp;
-	private boolean initialized = false;
+	
 	public static final int EQUALSTO = 1;
 	public static final int GREATERTHAN = 2;
 	public static final int GREATHEROREQUALTHAN = 3;
 	public static final int LESSTHAN = 4;
 	public static final int LESSOREQUALTHAN = 5;
+	public static final int ARRAYCONTAINS = 6;
+	public static final int EQUALSANDGREATER = 7;
+	public static final int EQUALSANDLESSOREQUAL = 8;
+	public static final int DOUBLEEQUALSTO = 9;
 	
-	private void initializer()
+	protected void initializer()
 	{
 		if (initialized) return;
 		try
@@ -70,6 +73,7 @@ public abstract class API
 		}
 		initialized = true;
 	}
+	
 	public List<Object> get()
 	{
 		initializer();
@@ -84,10 +88,14 @@ public abstract class API
 						case 3 -> getRef.whereGreaterThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
 						case 4 -> getRef.whereLessThan((String) getCondition().getK(), getCondition().getV());
 						case 5 -> getRef.whereLessThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
+						case 6 -> getRef.whereArrayContains((String) getCondition().getK(), getCondition().getV());
+						case 7 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereGreaterThan((String) getSecondCondition().getK(), getSecondCondition().getV());
+						case 8 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereLessThanOrEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
+						case 9 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
 						default -> throw new IllegalArgumentException("Unexpected value: " + getTypeOfCondition());
 					};
-			query = query.orderBy(getOrder().getK(), (Direction) getOrder().getV())
-					.limit(getLimit());
+			query = getOrder() != null ? query.orderBy(getOrder().getK(), (Direction) getOrder().getV()) : query;
+			query = query.limit(getLimit());
 			ApiFuture<QuerySnapshot> future = query.get();
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 			documents.stream().map(mapper()).forEach(o -> result.add(o));	
@@ -104,6 +112,7 @@ public abstract class API
 		String id = null;
 		try
 		{
+			initializer();
 			ApiFuture<DocumentReference> addDocRef = db.collection(from()).add(putMapper(o));
 			id = addDocRef.get().getId();
 		} catch (InterruptedException | ExecutionException e)
@@ -115,57 +124,57 @@ public abstract class API
 	
 	public void update(Object o)
 	{
-		DocumentReference addDocRef = db.collection(from()).document(updateRef(o));
-		addDocRef.get();
+		try
+		{
+			initializer();
+			DocumentReference docRef = db.collection(from()).document(idRef(o));
+			ApiFuture<WriteResult> updateFuture = docRef.update(putMapper(o));
+			updateFuture.get();
+		} catch (InterruptedException | ExecutionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	public void delete(Object o)
+	{
+		try
+		{
+			initializer();
+			DocumentReference docRef = db.collection(from()).document(idRef(o));
+			ApiFuture<WriteResult> deleteFuture = docRef.delete();
+			deleteFuture.get();
+		} catch (InterruptedException | ExecutionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public <T> T getDocument(String id, Function<DocumentSnapshot, T> mapper)
+	{
+		initializer();
+		try
+		{
+			DocumentReference docRef = db.collection(from()).document(id);
+			ApiFuture<DocumentSnapshot> document = docRef.get();
+			return mapper.apply(document.get());
+		}
+		catch(ExecutionException | InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return null;		
+	}	
 	
 	public abstract String from();
 	public abstract int getTypeOfCondition();
 	public abstract <V> Pair<String, V> getCondition();
+	public abstract <V> Pair<String, V> getSecondCondition();
 	public abstract Pair<String, Object> getOrder();
 	public abstract int getLimit();
-	public abstract Function<QueryDocumentSnapshot, Object> mapper();
-	public abstract HashMap<String, Object> putMapper(Object o);
-	public abstract String updateRef(Object o);
-	
-	
-	/*
-	// Get a reference to the "users" collection
-	CollectionReference usersRef = db.collection("users");
-
-	// Query for all documents where the "age" field is equal to 30
-	Query query = usersRef.whereEqualTo("age", 30);
-
-	// Execute the query and get the results as a QuerySnapshot
-	ApiFuture<QuerySnapshot> querySnapshotFuture = query.get();
-	QuerySnapshot querySnapshot = querySnapshotFuture.get();
-
-	// Iterate over the results and print the data for each document
-	for (QueryDocumentSnapshot document : querySnapshot) {
-	    System.out.println(document.getData());
-	}
-	*/
-	//<T> List<T>
-		//Post
-		//Put
-		//Delete
-	
-	/*FileInputStream serviceAccount = new FileInputStream("./ServiceAccountKey.json");
-	FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount))
-			.build();
-	FirebaseApp.initializeApp(options);
-
-	/*
-	 * HashMap<String, String> person = new HashMap<>(); person.put("first_name",
-	 * "Erick"); person.put("last_name", "Lopez");
-	 */
-
-	//Firestore db = FirestoreClient.getFirestore();
-	/*
-	 * ApiFuture<WriteResult> collectionsApiFuture =
-	 * db.collection("Clients").document().set(person);
-	 * 
-	 * System.out.println("Write result: " +
-	 * collectionsApiFuture.get().getUpdateTime());
-	 */
+	public abstract <T> Function<QueryDocumentSnapshot, T> mapper();
+	public abstract <T> HashMap<String, Object> putMapper(T t);
+	public abstract <T> String idRef(T t);
 }

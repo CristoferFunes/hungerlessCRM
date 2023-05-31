@@ -7,7 +7,10 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.hungerless.HungerlessCRM.GUI.calculator.View_priceLoader;
 import com.hungerless.HungerlessCRM.GUI.clients.View_Clients;
+import com.hungerless.HungerlessCRM.GUI.editor.View_Editor;
+import com.hungerless.HungerlessCRM.GUI.sales.View_Sales;
 
 
 
@@ -40,18 +43,18 @@ public class Pan_workSpace extends JPanel
 	/*public void selectAccount()
 	{
 		new View_Account();
-	}
+	}*/
 	
 	public void selectCalculator()
 	{
-		new View_Calculator();
-	}*/
+		new View_priceLoader();
+	}
 	
 	public void selectClients()
 	{
 		new View_Clients();
 	}
-	/*
+	
 	public void selectSales()
 	{
 		new View_Sales();
@@ -60,6 +63,6 @@ public class Pan_workSpace extends JPanel
 	public void selectEditor()
 	{
 		new View_Editor();
-	}*/
+	}
 	private static final long serialVersionUID = -5280371732195713756L;
 }

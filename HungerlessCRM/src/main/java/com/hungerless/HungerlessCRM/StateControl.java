@@ -1,12 +1,17 @@
 package com.hungerless.HungerlessCRM;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.hungerless.HungerlessCRM.login.User;
 
 public abstract class StateControl
 {
+	private static User currentUser;
 	private static String currentClient;
-	private static int currentSale;
+	private static String currentSale;
 	private static int currentProduct;
 	private static Set<String> selectedClients = new HashSet<>();
 	
@@ -20,12 +25,12 @@ public abstract class StateControl
 		return currentClient;
 	}
 	
-	public static void setCurrentSale(int s)
+	public static void setCurrentSale(String s)
 	{
 		currentSale = s;
 	}
 	
-	public static int getCurrentSale()
+	public static String getCurrentSale()
 	{
 		return currentSale;
 	}
@@ -63,5 +68,15 @@ public abstract class StateControl
 	public static boolean selectedClientsEmpty()
 	{
 		return selectedClients.isEmpty();
+	}
+	
+	public static User getCurrentUser()
+	{
+		return currentUser;
+	}
+
+	public static void setCurrentUser(User currentUser)
+	{
+		StateControl.currentUser = currentUser;
 	}
 }

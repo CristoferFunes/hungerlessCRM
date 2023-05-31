@@ -6,7 +6,9 @@ import java.util.Set;
 import javax.swing.JComponent;
 
 import com.hungerless.HungerlessCRM.clients.ClientsContainer;
+import com.hungerless.HungerlessCRM.sales.SalesContainer;
 import com.hungerless.HungerlessCRM.StateControl;
+import com.hungerless.HungerlessCRM.calculator.ProductsContainer;
 
 
 public abstract class GraphicObjects
@@ -53,11 +55,12 @@ public abstract class GraphicObjects
 						.forEach(l -> objects.get("Pan_workSpace").remove(objects.get(l)));
 		objects.keySet().removeIf(k -> k.substring(4, 5).equals("R") || k.substring(4, 5).equals("L"));
 		StateControl.setCurrentClient(null);
-		StateControl.setCurrentSale(0);
+		StateControl.setCurrentSale(null);
+		StateControl.setCurrentProduct(0);
 		StateControl.clearSelectedClients();
-		//Products.clearProducts();
+		ProductsContainer.clearProducts();
 		ClientsContainer.clearClients();
-		//Sales.clearSales();
+		SalesContainer.clearSales();
 		objects.get("Pan_workSpace").repaint();
 	}
 	

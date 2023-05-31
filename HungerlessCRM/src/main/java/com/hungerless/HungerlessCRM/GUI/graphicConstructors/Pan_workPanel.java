@@ -1,10 +1,13 @@
-package com.hungerless.HungerlessCRM.GUI;
+package com.hungerless.HungerlessCRM.GUI.graphicConstructors;
 
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
+import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 
 
 
@@ -24,15 +27,6 @@ public class Pan_workPanel extends JPanel
 		{
 			case 1 -> 
 			{
-				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel()); 
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setPreferredSize(GraphicConstants.getWorkSpacePanelSize());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setBackground(GraphicConstants.getWorkPanelColor());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setLayout(new FlowLayout(FlowLayout.LEADING,0,0)); //sin margenes
-				
-				this.add(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"));
-			}
-			case 2 ->
-			{				
 				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
 				GraphicObjects.add("Scr_"+LorR+"_ScrollArea", new JScrollPane(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"))); 
 				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setPreferredSize(GraphicConstants.getObjectsSize()); //reemplazar por multiplicador del height por objeto 
@@ -49,34 +43,8 @@ public class Pan_workPanel extends JPanel
 				this.add(GraphicObjects.get("Pan_"+LorR+"_OptionsPanel"));
 				this.add(GraphicObjects.get("Scr_"+LorR+"_ScrollArea"));
 			}
-			case 3 ->
-			{
-				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
-				GraphicObjects.add("Scr_"+LorR+"_ScrollArea", new JScrollPane(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"))); 
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setPreferredSize(GraphicConstants.getObjectsSize());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setBackground(GraphicConstants.getWorkPanelColor());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setLayout(new FlowLayout(FlowLayout.LEADING,GraphicConstants.getMargins(),GraphicConstants.getMargins()));//con margenes
-				GraphicObjects.get("Scr_"+LorR+"_ScrollArea").setPreferredSize(GraphicConstants.getWorkSpacePanelSize());
-				GraphicObjects.get("Scr_"+LorR+"_ScrollArea").setBorder(BorderFactory.createEmptyBorder());
-				
-				this.add(GraphicObjects.get("Scr_"+LorR+"_ScrollArea"));
-			}
-			case 4 ->
-			{
-				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setPreferredSize(GraphicConstants.getLargeScrollAreaSize());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setBackground(GraphicConstants.getWorkPanelColor());
-				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setLayout(new FlowLayout(FlowLayout.LEADING, GraphicConstants.getMargins(), GraphicConstants.getMargins()));
-				
-				GraphicObjects.add("Pan_"+LorR+"_OptionsPanel", new JPanel());
-				GraphicObjects.get("Pan_"+LorR+"_OptionsPanel").setPreferredSize(GraphicConstants.getOptionPanelSize());
-				GraphicObjects.get("Pan_"+LorR+"_OptionsPanel").setBackground(GraphicConstants.getOptionPanelColor());
-				
-				this.add(GraphicObjects.get("Pan_"+LorR+"_OptionsPanel"));
-				this.add(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"));
-			}
-			case 5 ->
-			{
+			case 2 ->
+			{				
 				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
 				GraphicObjects.add("Scr_"+LorR+"_ScrollArea", new JScrollPane(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"))); 
 				GraphicObjects.get("Pan_"+LorR+"_ContentPanel").setPreferredSize(GraphicConstants.getObjectsSize()); //reemplazar por multiplicador del height por objeto 

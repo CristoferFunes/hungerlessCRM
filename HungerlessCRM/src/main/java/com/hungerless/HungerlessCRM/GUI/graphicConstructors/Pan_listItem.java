@@ -7,8 +7,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import com.hungerless.HungerlessCRM.mouseClickAction;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
+import com.hungerless.HungerlessCRM.interfaces.mouseClickAction;
 
 public class Pan_listItem extends JPanel
 {

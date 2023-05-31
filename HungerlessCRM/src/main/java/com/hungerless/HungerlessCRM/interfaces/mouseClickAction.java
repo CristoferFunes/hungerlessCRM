@@ -1,4 +1,4 @@
-package com.hungerless.HungerlessCRM;
+package com.hungerless.HungerlessCRM.interfaces;
 
 public interface mouseClickAction
 {

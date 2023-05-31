@@ -12,21 +12,29 @@ public class Client
 	private String address;
 	private String phoneNumber;
 	private String comments;
+	private String lastSaleSpecs;
 	private Date dateOfCreation;
 	private Date lastSaleDate;
 	private boolean prospect;
 	private boolean customer;
+	private double seniority;
+	private double average_ticket;
+	private String lastSaleID;
 	
 	public Client(String clientID,
 				  String first_name, 
 				  String last_name, 
 				  String address, 
 				  String phoneNumber, 
-				  String comments, 
+				  String comments,
+				  String lastSaleSpecs,
 				  Date dateOfCreation, 
 				  Date lastSaleDate, 
 				  Boolean prospect, 
-				  Boolean customer)
+				  Boolean customer,
+				  double seniority,
+				  double average_ticket,
+				  String last_sale_id)
 	{
 		this.clientID = clientID;
 		this.first_name = first_name;
@@ -34,12 +42,71 @@ public class Client
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.comments = comments;
+		this.lastSaleSpecs = lastSaleSpecs;
 		this.dateOfCreation = dateOfCreation;
 		this.lastSaleDate = lastSaleDate;
 		this.prospect = prospect;
 		this.customer = customer;
+		this.seniority = seniority;
+		this.average_ticket = average_ticket;
+		this.lastSaleID = last_sale_id;
 	}
 	
+	public String getLastSaleID()
+	{
+		return lastSaleID;
+	}
+
+	public void setLastSaleID(String lastSaleID)
+	{
+		this.lastSaleID = lastSaleID;
+	}
+
+	public double getAverage_ticket()
+	{
+		return average_ticket;
+	}
+
+	public void setAverage_ticket(double average_ticket)
+	{
+		this.average_ticket = average_ticket;
+	}
+
+	public void setClientID(String clientID)
+	{
+		this.clientID = clientID;
+	}
+
+	public void setAddress(String address)
+	{
+		this.address = address;
+	}
+
+	public void setLastSaleDate(Date lastSaleDate)
+	{
+		this.lastSaleDate = lastSaleDate;
+	}
+
+	public String getLastSaleSpecs()
+	{
+		return lastSaleSpecs;
+	}
+
+	public void setLastSaleSpecs(String lastSaleSpecs)
+	{
+		this.lastSaleSpecs = lastSaleSpecs;
+	}
+
+	public double getSeniority()
+	{
+		return seniority;
+	}
+
+	public void setSeniority(double seniority)
+	{
+		this.seniority = seniority;
+	}
+
 	public String getFirst_name()
 	{
 		return first_name;
