@@ -1,8 +1,7 @@
 package com.hungerless.HungerlessCRM.calculator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 public abstract class PricesContainer
 {
@@ -21,8 +20,23 @@ public abstract class PricesContainer
 		return prices.get(v);
 	}
 	
+	public static void update(String k, double v)
+	{
+		prices.put(k, v);
+	}
+	
 	public static HashMap<String,Double> getMultipliers(int c)
 	{
 		return multipliers.get(c);
+	}
+	
+	public static HashMap<String, Double> getAllPrices()
+	{
+		return prices;
+	}
+	
+	public static Set<String> getKeySet()
+	{
+		return prices.keySet();
 	}
 }

@@ -2,7 +2,6 @@ package com.hungerless.HungerlessCRM.sales;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
 
@@ -13,7 +12,6 @@ import com.hungerless.HungerlessCRM.interfaces.mouseClickAction;
 
 public class Pan_SaleListItem extends Pan_listItem
 {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 	private static final long serialVersionUID = -96498921410760540L;
 	private int mealCount = 0;
 	private int breakCount = 0;

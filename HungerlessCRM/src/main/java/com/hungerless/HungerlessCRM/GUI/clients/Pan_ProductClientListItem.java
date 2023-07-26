@@ -5,14 +5,10 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
-import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.calculator.ProductItem;
-import com.hungerless.HungerlessCRM.calculator.ProductsContainer;
-import com.hungerless.HungerlessCRM.interfaces.mouseClickAction;
-import com.hungerless.HungerlessCRM.sales.SalesContainer;
 
 public class Pan_ProductClientListItem extends Pan_listItem
 {

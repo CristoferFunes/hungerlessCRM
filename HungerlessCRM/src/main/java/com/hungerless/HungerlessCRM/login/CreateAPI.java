@@ -62,7 +62,7 @@ public class CreateAPI extends API
 		HashMap<String, Object> post = new HashMap<>();
 		post.put("user", ((Pair<String, String>) o).getK());
 		post.put("password", ((Pair<String, String>) o).getV());
-		if(!((User)o).getName().equals("Nuevo usuario")) post.put("name", ((User)o).getName());
+		//if(!((User)o).getName().equals("Nuevo usuario")) post.put("name", ((User)o).getName());
 		return post;
 	}
 

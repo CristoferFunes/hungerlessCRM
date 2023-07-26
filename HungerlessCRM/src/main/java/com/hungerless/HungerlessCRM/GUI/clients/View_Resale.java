@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -22,17 +23,14 @@ import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.View_Loading;
-import com.hungerless.HungerlessCRM.GUI.sales.View_Sales;
 import com.hungerless.HungerlessCRM.calculator.PricesContainer;
 import com.hungerless.HungerlessCRM.calculator.ProductItem;
-import com.hungerless.HungerlessCRM.calculator.ProductsContainer;
 import com.hungerless.HungerlessCRM.calculator.QuotationsAPI;
 import com.hungerless.HungerlessCRM.clients.Client;
 import com.hungerless.HungerlessCRM.clients.ClientsAPI;
 import com.hungerless.HungerlessCRM.clients.ClientsContainer;
 import com.hungerless.HungerlessCRM.clients.HistorySalesFromClientAPI;
 import com.hungerless.HungerlessCRM.clients.SalesFromClientAPI;
-import com.hungerless.HungerlessCRM.sales.HistorySalesAPI;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SalesContainer;
 
@@ -82,7 +80,7 @@ public class View_Resale
 					t.getBoolean("quotation") == null ? false : t.getBoolean("quotation"),
 					t.getBoolean("sale") == null ? false : t.getBoolean("sale"),
 					t.getString("specs"),
-					Calendar.getInstance().getTime(),
+					new Date(),
 					t.getDouble("total_cost"),
 					t.getDouble("tokens"),
 					t.getDouble("for_sprint") == null ? 0 : t.getDouble("for_sprint"),
@@ -142,8 +140,8 @@ public class View_Resale
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("ww"); 
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");		
-		int week = (int)Integer.valueOf(dateFormat.format(Calendar.getInstance().getTime()));
-		int year = (int)Integer.valueOf(yearFormat.format(Calendar.getInstance().getTime()));
+		int week = (int)Integer.valueOf(dateFormat.format(new Date()));
+		int year = (int)Integer.valueOf(yearFormat.format(new Date()));
 		int suggestion1 = week+1 > 51 ? 2 : week+1;
 		int suggestion2 = suggestion1+1 > 51 ? 2 : suggestion1+1;
 		int suggestion3 = suggestion2+1 > 51 ? 2 : suggestion2+1;
@@ -168,27 +166,32 @@ public class View_Resale
 		
 		switch(SalesContainer.get(StateControl.getCurrentSale()).getWeeks())
 		{
-			case 1 -> 
+			case 1 : 
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
+				break;
 			}
-			case 2 -> 
+			
+			case 2 : 
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
+				break;
 			}
-			case 3 -> 
+			case 3 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint2"));
+				break;
 			}
-			case 4 -> 
+			case 4 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint2"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint3"));
+				break;
 			}
 		}
 		

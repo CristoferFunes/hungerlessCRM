@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JCheckBox;
@@ -34,7 +35,6 @@ import com.hungerless.HungerlessCRM.calculator.QuotationsAPI;
 import com.hungerless.HungerlessCRM.clients.Client;
 import com.hungerless.HungerlessCRM.clients.ClientsAPI;
 import com.hungerless.HungerlessCRM.clients.ClientsContainer;
-import com.hungerless.HungerlessCRM.clients.HistorySalesFromClientAPI;
 import com.hungerless.HungerlessCRM.clients.SalesFromClientAPI;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SalesContainer;
@@ -61,7 +61,7 @@ public class View_SaleEditor
 					true,
 					false,
 					"",
-					Calendar.getInstance().getTime(),
+					new Date(),
 					0,
 					0,
 					0,
@@ -104,7 +104,7 @@ public class View_SaleEditor
 	@SuppressWarnings("unchecked")
 	private void productEditor()
 	{	
-		editorSize = 181;
+		editorSize = 196;
 		GraphicObjects.add("Pan_L_Main", new Pan_workPanel(1, "L"));
 		GraphicObjects.get("Pan_workSpace").add(GraphicObjects.get("Pan_L_Main"));
 		
@@ -117,6 +117,11 @@ public class View_SaleEditor
 		GraphicObjects.get("Pan_L_OptionsPanel").add(GraphicObjects.get("But_L_Shipment"));
 		GraphicObjects.get("Pan_L_OptionsPanel").add(GraphicObjects.get("But_L_Specs"));
 		GraphicObjects.get("Pan_L_OptionsPanel").add(GraphicObjects.get("But_L_Return"));
+		
+		GraphicObjects.add("Lab_L_clientName", new JLabel(StateControl.getCurrentSale().equals("new") ? ClientsContainer.get(StateControl.getCurrentClient()).getFirst_name() + " " + ClientsContainer.get(StateControl.getCurrentClient()).getLast_name(): SalesContainer.get(StateControl.getCurrentSale()).getClient_name() )); //name of client
+		GraphicObjects.get("Lab_L_clientName").setPreferredSize(new Dimension(GraphicConstants.getObjectsSizeXY()[0],10));
+		GraphicObjects.get("Lab_L_clientName").setForeground(Color.WHITE);
+		GraphicObjects.get("Pan_L_ContentPanel").add(GraphicObjects.get("Lab_L_clientName"));
 		
 		GraphicObjects.get("Pan_workSpace").revalidate();
 		GraphicObjects.get("Pan_workSpace").repaint();
@@ -220,13 +225,16 @@ public class View_SaleEditor
 		((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).setSelectedItem(ProductsContainer.get(StateControl.getCurrentProduct()).getTypeWriten());
 		((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).addActionListener(e ->
 		{
-			ProductsContainer.get(StateControl.getCurrentProduct()).setType(
-					switch((String) ((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).getSelectedItem())
-					{
-						case "Comidas" -> 1;
-						case "Desayunos" -> 2;
-						default -> throw new IllegalArgumentException("Unexpected value: " + (String) ((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).getSelectedItem());
-					});
+			int type;
+			switch((String) ((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).getSelectedItem())
+			{
+				case "Comidas" : type = 1;
+				break;
+				case "Desayunos" : type = 2;
+				break;
+				default : throw new IllegalArgumentException("Unexpected value: " + (String) ((JComboBox<String>)GraphicObjects.get("Box_L_MorB")).getSelectedItem());
+			}
+			ProductsContainer.get(StateControl.getCurrentProduct()).setType(type);
 			SalesContainer.get(StateControl.getCurrentSale()).updateTotalCost();
 			GraphicObjects.dropR();
 			saleView();
@@ -357,6 +365,7 @@ public class View_SaleEditor
 			GraphicObjects.add("Lab_L_PP", new JLabel("Principal:")); //name label _3
 			GraphicObjects.get("Lab_L_PP").setPreferredSize(GraphicConstants.getTextAreaLabelSize());
 			GraphicObjects.get("Lab_L_PP").setForeground(Color.WHITE);
+			GraphicObjects.get("Lab_L_PP").setToolTipText("Es multiplicador");
 			
 			GraphicObjects.add("Spi_L_PP", new JSpinner(modelMultiplierPP));
 			GraphicObjects.get("Spi_L_PP").setPreferredSize(GraphicConstants.getSmallTextSize());
@@ -370,9 +379,10 @@ public class View_SaleEditor
 				saleView();
 			});
 			
-			GraphicObjects.add("Lab_L_G1", new JLabel("Guarn. 1:")); //name label _3
+			GraphicObjects.add("Lab_L_G1", new JLabel("Guarn. Carbs:")); //name label _3
 			GraphicObjects.get("Lab_L_G1").setPreferredSize(GraphicConstants.getTextAreaLabelSize());
 			GraphicObjects.get("Lab_L_G1").setForeground(Color.WHITE);
+			GraphicObjects.get("Lab_L_G1").setToolTipText("Es multiplicador");
 			
 			GraphicObjects.add("Spi_L_G1", new JSpinner(modelMultiplierG1));
 			GraphicObjects.get("Spi_L_G1").setPreferredSize(GraphicConstants.getSmallTextSize());
@@ -386,9 +396,10 @@ public class View_SaleEditor
 				saleView();
 			});
 			
-			GraphicObjects.add("Lab_L_G2", new JLabel("Guarn 2:")); //name label _3
+			GraphicObjects.add("Lab_L_G2", new JLabel("Guarn. Vegetal:")); //name label _3
 			GraphicObjects.get("Lab_L_G2").setPreferredSize(GraphicConstants.getTextAreaLabelSize());
 			GraphicObjects.get("Lab_L_G2").setForeground(Color.WHITE);
+			GraphicObjects.get("Lab_L_G2").setToolTipText("Es multiplicador");
 			
 			GraphicObjects.add("Spi_L_G2", new JSpinner(modelMultiplierG2));
 			GraphicObjects.get("Spi_L_G2").setPreferredSize(GraphicConstants.getSmallTextSize());
@@ -667,8 +678,8 @@ public class View_SaleEditor
 	{	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("ww"); 
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");		
-		int week = (int)Integer.valueOf(dateFormat.format(Calendar.getInstance().getTime()));
-		int year = (int)Integer.valueOf(yearFormat.format(Calendar.getInstance().getTime()));
+		int week = (int)Integer.valueOf(dateFormat.format(new Date()));
+		int year = (int)Integer.valueOf(yearFormat.format(new Date()));
 		int suggestion1 = week+1 > 51 ? 2 : week+1;
 		int suggestion2 = suggestion1+1 > 51 ? 2 : suggestion1+1;
 		int suggestion3 = suggestion2+1 > 51 ? 2 : suggestion2+1;
@@ -693,27 +704,31 @@ public class View_SaleEditor
 		
 		switch(SalesContainer.get(StateControl.getCurrentSale()).getWeeks())
 		{
-			case 1 -> 
+			case 1 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
+				break;
 			}
-			case 2 -> 
+			case 2 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
+				break;
 			}
-			case 3 -> 
+			case 3 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint2"));
+				break;
 			}
-			case 4 -> 
+			case 4 :
 			{
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint0"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint1"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint2"));
 				optionPanel.add(GraphicObjects.get("Spi_P_for_sprint3"));
+				break;
 			}
 		}
 		
@@ -739,7 +754,7 @@ public class View_SaleEditor
 		
 		SalesContainer.get(StateControl.getCurrentSale()).setSale(true);
 		SalesContainer.get(StateControl.getCurrentSale()).setQuotation(false);
-		SalesContainer.get(StateControl.getCurrentSale()).setDateOfCreation(Calendar.getInstance().getTime());
+		SalesContainer.get(StateControl.getCurrentSale()).setDateOfCreation(new Date());
 		
 		new Thread(() -> 
 		{
@@ -760,6 +775,9 @@ public class View_SaleEditor
 					t.getString("last_sale_id") == null ? null : t.getString("last_sale_id")
 					)));
 			int sprints = SalesContainer.get(StateControl.getCurrentSale()).getWeeks();
+			ArrayList<String> products = new ArrayList<>();	
+			ProductsContainer.getKeySet().stream().map(k -> ProductsContainer.get(k)).forEach(p -> products.add(p.codeGenerator()));
+			SalesContainer.get(StateControl.getCurrentSale()).setProducts(products);
 			for (int i = 0; i<sprints; i++)
 			{
 				int currentValue = (int)((JSpinner)GraphicObjects.get("Spi_P_for_sprint"+i)).getValue();
@@ -774,9 +792,6 @@ public class View_SaleEditor
 				
 				if(StateControl.getCurrentSale().equals("new"))
 				{
-					ArrayList<String> products = new ArrayList<>();	
-					ProductsContainer.getKeySet().stream().map(k -> ProductsContainer.get(k)).forEach(p -> products.add(p.codeGenerator()));
-					SalesContainer.get(StateControl.getCurrentSale()).setProducts(products);
 					String newid = new QuotationsAPI().post(SalesContainer.get(StateControl.getCurrentSale()));
 					SalesContainer.get(StateControl.getCurrentSale()).setParent_id(newid);
 					ClientsContainer.get(StateControl.getCurrentClient()).setLastSaleID(newid);

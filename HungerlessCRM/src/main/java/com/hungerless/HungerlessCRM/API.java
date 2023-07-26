@@ -81,18 +81,27 @@ public abstract class API
 		try
 		{
 			getRef = db.collection(from());
-			query = switch(getTypeOfCondition())
+			switch(getTypeOfCondition())
 					{
-						case 1 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV());
-						case 2 -> getRef.whereGreaterThan((String) getCondition().getK(), getCondition().getV());
-						case 3 -> getRef.whereGreaterThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
-						case 4 -> getRef.whereLessThan((String) getCondition().getK(), getCondition().getV());
-						case 5 -> getRef.whereLessThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
-						case 6 -> getRef.whereArrayContains((String) getCondition().getK(), getCondition().getV());
-						case 7 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereGreaterThan((String) getSecondCondition().getK(), getSecondCondition().getV());
-						case 8 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereLessThanOrEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
-						case 9 -> getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
-						default -> throw new IllegalArgumentException("Unexpected value: " + getTypeOfCondition());
+						case 1 : query = getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 2 : query =getRef.whereGreaterThan((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 3 : query =getRef.whereGreaterThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 4 : query =getRef.whereLessThan((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 5 : query =getRef.whereLessThanOrEqualTo((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 6 : query =getRef.whereArrayContains((String) getCondition().getK(), getCondition().getV());
+						break;
+						case 7 : query =getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereGreaterThan((String) getSecondCondition().getK(), getSecondCondition().getV());
+						break;
+						case 8 : query =getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereLessThanOrEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
+						break;
+						case 9 : query =getRef.whereEqualTo((String) getCondition().getK(), getCondition().getV()).whereEqualTo((String) getSecondCondition().getK(), getSecondCondition().getV());
+						break;
+						default: throw new IllegalArgumentException("Unexpected value: " + getTypeOfCondition());
 					};
 			query = getOrder() != null ? query.orderBy(getOrder().getK(), (Direction) getOrder().getV()) : query;
 			query = query.limit(getLimit());

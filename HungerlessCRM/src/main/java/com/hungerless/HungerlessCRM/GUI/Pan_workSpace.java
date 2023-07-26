@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.hungerless.HungerlessCRM.GUI.account.View_Account;
 import com.hungerless.HungerlessCRM.GUI.calculator.View_priceLoader;
 import com.hungerless.HungerlessCRM.GUI.clients.View_Clients;
 import com.hungerless.HungerlessCRM.GUI.editor.View_Editor;
@@ -40,10 +41,10 @@ public class Pan_workSpace extends JPanel
 		this.add(GraphicObjects.get("Pan_L_ContentPanel"));
 	}
 	
-	/*public void selectAccount()
+	public void selectAccount()
 	{
 		new View_Account();
-	}*/
+	}
 	
 	public void selectCalculator()
 	{

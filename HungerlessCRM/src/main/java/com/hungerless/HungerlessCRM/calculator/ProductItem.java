@@ -40,12 +40,15 @@ public class ProductItem
 	{
 		productID = idConstructor(isNew);
 		this.type = Integer.valueOf(builder.substring(0, 1));
-		this.typeWriten = switch(this.type)
+		switch(this.type)
 		{
-			case 1 -> "Comidas";
-			case 2 -> "Desayunos";
-			case 3 -> "Envio";
-			default -> throw new IllegalArgumentException("Unexpected value: " + this.type);
+			case 1 : this.typeWriten = "Comidas";
+			break;
+			case 2 : this.typeWriten = "Desayunos";
+			break;
+			case 3 : this.typeWriten = "Envio";
+			break;
+			default : throw new IllegalArgumentException("Unexpected value: " + this.type);
 		};
 		this.discount = Double.valueOf(builder.substring(1, 4))*0.1;
 		this.multiplierPP = Double.valueOf(builder.substring(4, 7))*0.01;
@@ -89,9 +92,9 @@ public class ProductItem
 		StringBuilder codeBuilder = new StringBuilder();
 		codeBuilder.append(String.valueOf(type));
 		codeBuilder.append(String.valueOf(1000 + (int)(this.discount*10)).substring(1, 4));
-		codeBuilder.append(String.valueOf((int)(this.multiplierPP*100)));
-		codeBuilder.append(String.valueOf((int)(this.multiplierG1*100)));
-		codeBuilder.append(String.valueOf((int)(this.multiplierG2*100)));
+		codeBuilder.append(String.valueOf(1000 + (int)(this.multiplierPP*100)).substring(1, 4));
+		codeBuilder.append(String.valueOf(1000 + (int)(this.multiplierG1*100)).substring(1, 4));
+		codeBuilder.append(String.valueOf(1000 + (int)(this.multiplierG2*100)).substring(1, 4));
 		codeBuilder.append(String.valueOf(this.calories));
 		codeBuilder.append(String.valueOf(100 + this.innerAmount).substring(1, 3));
 		codeBuilder.append(String.valueOf(100 + this.originalAmount).substring(1, 3));
@@ -104,7 +107,7 @@ public class ProductItem
 	{
 		switch(this.type)
 		{
-			case 1 -> //comidas
+			case 1 : //comidas
 			{
 				this.unitCost = 0;
 				this.unitCost += PricesContainer.get("group_Constant_M_Animal")*PricesContainer.getMultipliers(this.calories).get("m_Animal");
@@ -120,8 +123,9 @@ public class ProductItem
 				double G2 = this.unitCost * (PricesContainer.get("unit_Cost_Meal_G2")/100) * this.multiplierG2;
 				
 				this.unitCost = PP + G1 + G2;
+				break;
 			}
-			case 2 -> //desayunos
+			case 2 : //desayunos
 			{
 				this.unitCost = 0;
 				this.unitCost += PricesContainer.get("group_Constant_B_Animal")*PricesContainer.getMultipliers(this.calories).get("b_Animal");
@@ -137,10 +141,12 @@ public class ProductItem
 				double G2 = this.unitCost * (PricesContainer.get("unit_Cost_Break_G2")/100) * this.multiplierG2;
 				
 				this.unitCost = PP + G1 + G2;	
+				break;
 			}
-			case 3 -> //envio
+			case 3 : //envio
 			{
 				this.unitCost = 50;
+				break;
 			}
 		}
 		
@@ -188,23 +194,23 @@ public class ProductItem
 	{
 		//				this.amount *= 2;
 		if(this.type == 3 || SalesContainer.get(StateControl.getCurrentSale()).getWeeks() <= 1) return value;
-		return switch((int)SalesContainer.get(StateControl.getCurrentSale()).getWeeks())
+		switch((int)SalesContainer.get(StateControl.getCurrentSale()).getWeeks())
 		{
-		case 2 -> value*= 1-(PricesContainer.get("discount_two_weeks")*0.01);
-		case 3 -> value*= 1-(PricesContainer.get("discount_three_weeks")*0.01);
-		case 4 -> value*= 1-(PricesContainer.get("discount_four_weeks")*0.01);
-		default -> throw new IllegalArgumentException("Unexpected value: " + (int)SalesContainer.get(StateControl.getCurrentSale()).getWeeks());
-		};
+		case 2 : return value*= 1-(PricesContainer.get("discount_two_weeks")*0.01);
+		case 3 : return value*= 1-(PricesContainer.get("discount_three_weeks")*0.01);
+		case 4 : return value*= 1-(PricesContainer.get("discount_four_weeks")*0.01);
+		default: return value;
+		}
 	}
 	
 	private double getAmortization()
 	{
-		return switch(type)
+		switch(type)
 		{
-		case 1 -> PricesContainer.get("amortization_Constant_For_Meals");
-		case 2 -> PricesContainer.get("amortization_Constant_For_Break");
-		default -> 0;
-		};
+		case 1 : return PricesContainer.get("amortization_Constant_For_Meals");
+		case 2 : return PricesContainer.get("amortization_Constant_For_Break");
+		default: return 0;
+		}
 	}
 	
 	private double setRegularDiscount(double value)
@@ -298,6 +304,11 @@ public class ProductItem
 		return this.productDiscount;
 	}
 	
+	public double getPublicTax()
+	{
+		return this.publicTax;
+	}
+	
 	public void setCalories(int c)
 	{
 		this.calories = c;
@@ -322,13 +333,15 @@ public class ProductItem
 	public void setType(int t)
 	{
 		this.type = t;
-		this.typeWriten = switch(this.type)
+		switch(this.type)
 				{
-					case 1 -> "Comidas";
-					case 2 -> "Desayunos";
-					case 3 -> "Envio";
-					default -> throw new IllegalArgumentException("Unexpected value: " + this.type);
-				};
+					case 1: this.typeWriten = "Comidas";
+					break;
+					case 2 : this.typeWriten = "Desayunos";
+					break;
+					case 3: this.typeWriten = "Envio";
+					break;
+				}
 		calculateNewUnit();
 		calculateCosts();
 		

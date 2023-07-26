@@ -3,7 +3,6 @@ package com.hungerless.HungerlessCRM.clients;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 
 import javax.swing.JFileChooser;
 
@@ -12,7 +11,6 @@ import com.hungerless.HungerlessCRM.StateControl;
 public abstract class ClientsExporter 
 {
 	private static StringBuilder data;
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy"); 
 	
 	public static void exportClientsCSV()
 	{

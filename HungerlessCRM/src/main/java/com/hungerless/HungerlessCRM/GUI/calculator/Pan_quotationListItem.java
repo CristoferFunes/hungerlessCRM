@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
-import com.hungerless.HungerlessCRM.clients.ClientsContainer;
 import com.hungerless.HungerlessCRM.interfaces.mouseClickAction;
 import com.hungerless.HungerlessCRM.sales.Sale;
 

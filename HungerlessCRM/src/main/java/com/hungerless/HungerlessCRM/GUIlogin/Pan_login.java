@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
 import com.hungerless.HungerlessCRM.Pair;
@@ -86,6 +87,17 @@ public class Pan_login extends JPanel
 		JPasswordField userPassword = new JPasswordField();
 		userPassword.setPreferredSize(new Dimension(GraphicConstants.getLoginSizeXY()[0] - (GraphicConstants.getMargins()*4), 28));
 		userPassword.setBackground(GraphicConstants.getTextAreaColor());
+		userPassword.addKeyListener(new KeyAdapter()
+		{
+			@Override
+            public void keyPressed(KeyEvent e) 
+			{
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) 
+                {
+                	login(userText.getText(), String.valueOf(userPassword.getPassword()));
+                }
+            }
+		});
 		
 		body.add(userLabel);
 		body.add(userText);

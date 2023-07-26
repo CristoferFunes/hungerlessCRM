@@ -1,6 +1,8 @@
 package com.hungerless.HungerlessCRM.GUI.graphicConstructors;
 
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -19,6 +21,20 @@ public class Tex_TextArea extends JScrollPane
 		textArea.setWrapStyleWord(true);
 		textArea.setBackground(GraphicConstants.getTextAreaColor());
 		textArea.setText(text);
+		textArea.addKeyListener(new KeyAdapter()
+		{
+			@Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_TAB) {
+                    if (e.getModifiersEx() > 0) {
+                        textArea.transferFocusBackward();
+                    } else {
+                        textArea.transferFocus();
+                    }
+                    e.consume();
+                }
+            }
+		});
 		//textArea.setFont(new Font(null, Font.PLAIN,20));
 		
 		this.setViewportView(textArea);

@@ -1,6 +1,5 @@
 package com.hungerless.HungerlessCRM.GUI.clients;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
@@ -14,7 +13,6 @@ import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.clients.Client;
-import com.hungerless.HungerlessCRM.clients.ClientsContainer;
 import com.hungerless.HungerlessCRM.interfaces.mouseClickAction;
 
 public class Pan_clientListItem extends Pan_listItem

@@ -1,7 +1,5 @@
 package com.hungerless.HungerlessCRM.clients;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.function.Function;
 
 import com.google.cloud.firestore.QueryDocumentSnapshot;

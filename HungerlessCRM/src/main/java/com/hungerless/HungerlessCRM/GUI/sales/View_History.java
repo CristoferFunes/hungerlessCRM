@@ -12,7 +12,6 @@ import com.hungerless.HungerlessCRM.GUI.calculator.Pan_quotationListItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.View_Loading;
-import com.hungerless.HungerlessCRM.sales.DueSalesAPI;
 import com.hungerless.HungerlessCRM.sales.HistorySalesAPI;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SalesContainer;

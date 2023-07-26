@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -17,16 +18,13 @@ import javax.swing.SpinnerNumberModel;
 import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
-import com.hungerless.HungerlessCRM.GUI.calculator.View_Quotations;
 import com.hungerless.HungerlessCRM.GUI.clients.Pan_ProductClientListItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.View_Loading;
 import com.hungerless.HungerlessCRM.calculator.ProductItem;
-import com.hungerless.HungerlessCRM.calculator.ProductsContainer;
 import com.hungerless.HungerlessCRM.calculator.QuotationsAPI;
-import com.hungerless.HungerlessCRM.clients.ClientsContainer;
 import com.hungerless.HungerlessCRM.sales.ConsecutiveSalesAPI;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SalesContainer;
@@ -141,8 +139,8 @@ public class View_SaleDetails
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("ww"); 
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");		
-		int week = (int)Integer.valueOf(dateFormat.format(Calendar.getInstance().getTime()));
-		int year = (int)Integer.valueOf(yearFormat.format(Calendar.getInstance().getTime()));
+		int week = (int)Integer.valueOf(dateFormat.format(new Date()));
+		int year = (int)Integer.valueOf(yearFormat.format(new Date()));
 		int suggestion1 = week+1 > 51 ? 2 : week+1;
 		
 		SpinnerNumberModel modelWeeks = new SpinnerNumberModel(suggestion1, 2, 51, 1);

@@ -25,7 +25,7 @@ public class Pan_workPanel extends JPanel
 	{
 		switch(type)
 		{
-			case 1 -> 
+			case 1 :
 			{
 				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
 				GraphicObjects.add("Scr_"+LorR+"_ScrollArea", new JScrollPane(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"))); 
@@ -42,8 +42,9 @@ public class Pan_workPanel extends JPanel
 				
 				this.add(GraphicObjects.get("Pan_"+LorR+"_OptionsPanel"));
 				this.add(GraphicObjects.get("Scr_"+LorR+"_ScrollArea"));
+				break;
 			}
-			case 2 ->
+			case 2 :
 			{				
 				GraphicObjects.add("Pan_"+LorR+"_ContentPanel", new JPanel());
 				GraphicObjects.add("Scr_"+LorR+"_ScrollArea", new JScrollPane(GraphicObjects.get("Pan_"+LorR+"_ContentPanel"))); 
@@ -66,6 +67,7 @@ public class Pan_workPanel extends JPanel
 				this.add(GraphicObjects.get("Pan_"+LorR+"_OptionsPanel"));
 				this.add(GraphicObjects.get("Scr_"+LorR+"_ScrollArea"));
 				this.add(GraphicObjects.get("Pan_"+LorR+"_Footer"));
+				break;
 			}
 		}
 	}

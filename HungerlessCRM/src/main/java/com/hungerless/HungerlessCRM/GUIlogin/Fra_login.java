@@ -4,8 +4,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import com.hungerless.HungerlessCRM.GUI.Pan_main;
-
 public class Fra_login extends JFrame
 {
 	public Fra_login()

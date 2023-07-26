@@ -10,7 +10,6 @@ import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
 import com.hungerless.HungerlessCRM.GUI.clients.Pan_ProductClientListItem;
-import com.hungerless.HungerlessCRM.GUI.clients.View_ClientDetails;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;

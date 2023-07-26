@@ -15,7 +15,6 @@ public class PricesMapper implements Function<QueryDocumentSnapshot, HashMap<Str
 		prices.put("id", t.getId());
 		prices.put("iva_percentage", t.getDouble("iva_percentage"));
 		prices.put("stripe_percentage", t.getDouble("stripe_percentage"));
-		prices.put("stripe_Constant", t.getDouble("stripe_Constant"));
 		prices.put("amortization_Constant_For_Meals", t.getDouble("amortization_Constant_For_Meals"));
 		prices.put("amortization_Constant_For_Break", t.getDouble("amortization_Constant_For_Break"));	
 		prices.put("unit_Cost_Meal", t.getDouble("unit_Cost_Meal"));
@@ -45,7 +44,7 @@ public class PricesMapper implements Function<QueryDocumentSnapshot, HashMap<Str
 		prices.put("discount_two_weeks", t.getDouble("discount_two_weeks"));
 		prices.put("sales_goal", t.getDouble("sales_goal"));
 		prices.put("maximum_discount", t.getDouble("maximum_discount"));
-		
+		//31 fields
 		return prices;
 	}
 }

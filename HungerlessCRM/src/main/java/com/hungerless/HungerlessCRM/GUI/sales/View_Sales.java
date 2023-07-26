@@ -3,8 +3,8 @@ package com.hungerless.HungerlessCRM.GUI.sales;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,15 +15,11 @@ import javax.swing.SpinnerNumberModel;
 import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
-import com.hungerless.HungerlessCRM.GUI.calculator.Pan_quotationListItem;
-import com.hungerless.HungerlessCRM.GUI.clients.View_Clients;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.View_Loading;
 import com.hungerless.HungerlessCRM.calculator.PricesContainer;
-import com.hungerless.HungerlessCRM.calculator.QuotationsAPI;
-import com.hungerless.HungerlessCRM.clients.ClientsExporter;
 import com.hungerless.HungerlessCRM.sales.DueSalesAPI;
 import com.hungerless.HungerlessCRM.sales.Pan_SaleListItem;
 import com.hungerless.HungerlessCRM.sales.Sale;
@@ -35,7 +31,7 @@ public class View_Sales
 	private int salesCount = 0;
 	private double totalSalesCount = 0;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("ww"); 
-	private int sprint =  (int)Integer.valueOf(dateFormat.format(Calendar.getInstance().getTime()));
+	private int sprint =  (int)Integer.valueOf(dateFormat.format(new Date()));
 
 	
 	public View_Sales()
@@ -85,7 +81,7 @@ public class View_Sales
 				}
 			});
 			GraphicObjects.get("Pan_L_ContentPanel").remove(GraphicObjects.get("Pan_L_Loading"));
-			((JLabel) GraphicObjects.get("Lab_L_salesGoal")).setText("Meta de ventas semanal: $"+String.valueOf(PricesContainer.get("sales_goal"))+" Restante: $"+String.valueOf(truncateNumber(PricesContainer.get("sales_goal") - this.totalSalesCount)));
+			((JLabel) GraphicObjects.get("Lab_L_salesGoal")).setText("Meta de ventas semanal: $"+String.valueOf(PricesContainer.get("sales_goal"))+" Restante: $"+ ((PricesContainer.get("sales_goal") - this.totalSalesCount) <= 0 ? 0 : String.valueOf(truncateNumber(PricesContainer.get("sales_goal") - this.totalSalesCount))));
 			((JLabel) GraphicObjects.get("Lab_L_totalSale")).setText("Venta total del sprint "+this.sprint+": $"+ truncateNumber(this.totalSalesCount));
 			GraphicObjects.get("Pan_L_ContentPanel").setPreferredSize(new Dimension(GraphicConstants.getObjectsSizeXY()[0],50 + (salesCount * 64) + ((salesCount + 1) * GraphicConstants.getMargins())));
 			((OptionButton)GraphicObjects.get("But_L_Export")).setEnabled(true);
@@ -115,8 +111,8 @@ public class View_Sales
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("ww"); 
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");		
-		int week = (int)Integer.valueOf(dateFormat.format(Calendar.getInstance().getTime()));
-		int year = (int)Integer.valueOf(yearFormat.format(Calendar.getInstance().getTime()));
+		int week = (int)Integer.valueOf(dateFormat.format(new Date()));
+		int year = (int)Integer.valueOf(yearFormat.format(new Date()));
 		SpinnerNumberModel modelWeeks = new SpinnerNumberModel(week, 2, week, 1);
 		SpinnerNumberModel modelYear = new SpinnerNumberModel(year, 2023, year, 1);
 		JSpinner sprintSpinner = new JSpinner(modelWeeks);

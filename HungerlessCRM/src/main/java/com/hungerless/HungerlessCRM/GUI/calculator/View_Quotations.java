@@ -5,13 +5,9 @@ import java.awt.Dimension;
 import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
-import com.hungerless.HungerlessCRM.GUI.clients.Pan_clientListItem;
-import com.hungerless.HungerlessCRM.GUI.clients.View_ClientDetails;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
-import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_listItem;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.View_Loading;
-import com.hungerless.HungerlessCRM.calculator.ProductItem;
 import com.hungerless.HungerlessCRM.calculator.QuotationsAPI;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SalesContainer;
@@ -25,7 +21,7 @@ public class View_Quotations
 		GraphicObjects.add("Pan_L_Main", new Pan_workPanel(1, "L"));
 		GraphicObjects.get("Pan_workSpace").add(GraphicObjects.get("Pan_L_Main"));
 		
-		GraphicObjects.add("But_L_Add", new OptionButton(false, "Agregar", () -> addFunction()));
+		GraphicObjects.add("But_L_Add", new OptionButton(false, "Nueva Cotiz.", () -> addFunction()));
 
 		GraphicObjects.get("Pan_L_OptionsPanel").add(GraphicObjects.get("But_L_Add"));
 		new View_Loading("L", "Cargando cotizaciones");

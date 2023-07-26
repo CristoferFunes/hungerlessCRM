@@ -3,13 +3,13 @@ package com.hungerless.HungerlessCRM.GUI.calculator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JLabel;
 
 import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
 import com.hungerless.HungerlessCRM.GUI.GraphicObjects;
-import com.hungerless.HungerlessCRM.GUI.clients.View_Clients;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.OptionButton;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Pan_workPanel;
 import com.hungerless.HungerlessCRM.GUI.graphicConstructors.Tex_TextArea;
@@ -24,7 +24,7 @@ public class View_QuickClient
 	View_QuickClient()
 	{
 		if(StateControl.getCurrentClient().substring(0, 3).equals("new")) ClientsContainer.add(
-				new Client("new", "", "", "", "", "", null, Calendar.getInstance().getTime(), null, true, false, 0, 0, null));
+				new Client("new", "", "", "", "", "", null, new Date(), null, true, false, 0, 0, null));
 		GraphicObjects.add("Pan_R_Main", new Pan_workPanel(1, "R"));
 		GraphicObjects.get("Pan_workSpace").add(GraphicObjects.get("Pan_R_Main"));
 		

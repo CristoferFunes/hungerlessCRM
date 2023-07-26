@@ -8,7 +8,6 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.hungerless.HungerlessCRM.API;
 import com.hungerless.HungerlessCRM.Pair;
 import com.hungerless.HungerlessCRM.StateControl;
-import com.hungerless.HungerlessCRM.clients.Client;
 import com.hungerless.HungerlessCRM.sales.Sale;
 import com.hungerless.HungerlessCRM.sales.SaleMapper;
 

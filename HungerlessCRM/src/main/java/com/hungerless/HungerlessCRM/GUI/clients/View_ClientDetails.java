@@ -3,10 +3,10 @@ package com.hungerless.HungerlessCRM.GUI.clients;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 
 import com.hungerless.HungerlessCRM.StateControl;
 import com.hungerless.HungerlessCRM.GUI.GraphicConstants;
@@ -26,7 +26,7 @@ public class View_ClientDetails
 	View_ClientDetails()
 	{
 		if(StateControl.getCurrentClient().substring(0, 3).equals("new")) ClientsContainer.add(
-				new Client("new", "", "", "", "", "", null, Calendar.getInstance().getTime(), null, true, false, 0, 0, null));
+				new Client("new", "", "", "", "", "", null, new Date(), null, true, false, 0, 0, null));
 		GraphicObjects.add("Pan_R_Main", new Pan_workPanel(1, "R"));
 		GraphicObjects.get("Pan_workSpace").add(GraphicObjects.get("Pan_R_Main"));
 		

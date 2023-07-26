@@ -2,6 +2,7 @@ package com.hungerless.HungerlessCRM.sales;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -27,7 +28,7 @@ public class DueSalesAPI extends API
 	@Override
 	public Pair<String, Object> getCondition()
 	{
-		return new Pair<String, Object>("for_sprint", (int)Integer.valueOf(format.format(Calendar.getInstance().getTime())));	
+		return new Pair<String, Object>("for_sprint", (int)Integer.valueOf(format.format(new Date())));	
 	}
 
 	@Override
